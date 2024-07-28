@@ -1,0 +1,38 @@
+name: inch_swap
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter  
+  cupertino_icons: ^1.0.2
+  web3dart: ^2.2.0
+  bloc: ^8.1.4
+  flutter_screenutil: ^5.9.3
+  dio: ^5.5.0+1
+  talker_dio_logger: ^4.3.4
+  cached_network_image: ^3.3.1
+  http: ^1.2.2
+  equatable: ^2.0.5
+  flutter_bloc: ^8.1.6
+  fluttertoast: ^8.2.5
+  flutter_dotenv: ^5.1.0
+  url_launcher: ^6.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - .env
