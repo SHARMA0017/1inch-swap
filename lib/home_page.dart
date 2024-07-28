@@ -22,11 +22,22 @@ class _HomePageState extends State<HomePage> {
       create: (_) => SwapBloc()..add(FetchCoins()),
       child: Scaffold(
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: BlocConsumer<SwapBloc, SwapState>(
             listener: (context, state) async {
               if (state is SwapError) {
                 Fluttertoast.showToast(msg: state.message);
+                final bloc = context.read<SwapBloc>();
+                bloc.add(LoadCoins());
+                try {
+                  final url =
+                      Uri.parse('https://bscscan.com/address/${bloc.address}');
+                  if (!await launchUrl(url)) {}
+                } catch (e) {
+                  if (kDebugMode) {
+                    print('Unable To Lauch url due to :$e');
+                  }
+                }
               } else if (state is Swapped) {
                 Fluttertoast.showToast(msg: state.broadcastResponse);
               } else if (state is TransactionApproved ||
@@ -92,18 +103,6 @@ class _HomePageState extends State<HomePage> {
                     }
                   },
                 );
-              } else if (state is Swapped) {
-                final bloc = context.read<SwapBloc>();
-                bloc.add(LoadCoins());
-                try {
-                  final url =
-                      Uri.parse('https://bscscan.com/address/${bloc.address}');
-                  if (!await launchUrl(url)) {}
-                } catch (e) {
-                  if (kDebugMode) {
-                    print('Unable To Lauch url due to :$e');
-                  }
-                }
               }
             },
             builder: (context, state) {
@@ -176,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                       7.height,
                       Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 10.w, vertical: 5.h),
+                            horizontal: 5.w, vertical: 5.h),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
@@ -253,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                       7.height,
                       Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 10.w, vertical: 5.h),
+                            horizontal: 5.w, vertical: 5.h),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
